@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace LinkCloud\Fast\Hyperf\Framework\Exception\Handler;
 
-use Couchbase\BaseException;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\ExceptionHandler\ExceptionHandler;
 use Hyperf\HttpServer\Request;
 use Hyperf\HttpServer\Response;
+use LinkCloud\Fast\Hyperf\Framework\Exception\BusinessException;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
@@ -46,12 +46,15 @@ class AppExceptionHandler extends ExceptionHandler
     public function handle(Throwable $throwable, ResponseInterface $response): ResponseInterface
     {
         $msg = $throwable->getMessage();
-        if ($throwable instanceof BaseException) {
+        if ($throwable instanceof BusinessException) {
             if (isDev() || $this->request->input('x-test-open')) {
                 $this->logger->warning(format_throwable($throwable));
                 $msg = format_throwable($throwable);
             }
-            return $this->response->fail($throwable->getErrorCode(), $msg);
+            return $this->response->json([
+                'code' => $throwable->getCode(),
+                'msg' => $msg
+            ]);
         }
 
         $this->logger->error(format_throwable($throwable));
@@ -61,7 +64,10 @@ class AppExceptionHandler extends ExceptionHandler
             $message = format_throwable($throwable);
         }
 
-        return $this->response->fail('F_0000001', $message);
+        return $this->response->json([
+            'code' => -1,
+            'msg' => $message
+        ]);
     }
 
     public function isValid(Throwable $throwable): bool
