@@ -14,6 +14,12 @@
 composer requrie link-cloud/fast-hyperf
 ```
 
+模板安装
+
+```
+composer create-project link-cloud/fast-hyperf-demo demo
+```
+
 模板创建
 
 ## 常用命令
@@ -62,3 +68,109 @@ php bin/hyperf.php translate:gen
 `
 此命令依赖 `config/autoload/generate.php` 配置文件，可参考demo项目
 `
+
+## 常用组件
+
+### 枚举类
+
+基于 `marc-mabe/php-enum` 封装的枚举类对象，方便枚举类传递和定义，再也不用到处问代码里的1234是什么意思了
+枚举类定义
+
+```php
+
+use LinkCloud\Fast\Hyperf\Annotations\EnumMessage;
+use LinkCloud\Fast\Hyperf\Framework\Entity\ErrorCode;
+
+/**
+ * @method static BaseStatus NORMAL()
+ * @method static BaseStatus FROZEN()
+ */
+class BaseStatus extends BaseEnum
+{
+    #[EnumMessage(message: '正常')]
+    public const NORMAL = 1;
+
+    #[EnumMessage(message: '冻结')]
+    public const FROZEN = 2;
+}
+```
+
+使用：
+
+```php
+$status = BaseStatus::NORMAL();
+var_dump($status->getValue()); // 获取数字值
+var_dump($status->getMessage()); // 获取关联信息
+
+// 函数定义时可指定类型
+function judge(BaseStatus $status)
+{
+    
+}
+
+judge(BaseStatus::NORMAL()); // 函数传参
+
+// 类的成员变量定义
+class Object
+{
+    protected BaseStatus $status;
+}
+```
+
+### 基本对象
+
+框架定义了`BaseObject`对象，用于方便在数组和对象之间互相转换
+
+定义一个对象
+
+```php
+use LinkCloud\Fast\Hyperf\Common\BaseObject;
+use LinkCloud\Fast\Hyperf\Annotations\ArrayType;
+
+class User extends BaseObject
+{
+    public string $userId;
+    
+    public string $userName;
+    
+    public UserStatus $status;
+    
+    #[ArrayType(valueType: UserBalance::class)]
+    public array $balances;
+}
+
+class UserBalance extends BaseObject
+{
+    public string $amount;
+}
+
+// 从数组转换过来
+$user = new User([
+    'user_id' => 1,
+    'user_name' => 'account',
+    'status' => 1,
+    'balances' => [
+        ['amount' => '100'],
+        ['amount' => '200'],
+    ],
+]);
+
+var_dump($user->userId);
+var_dump($user->balances);
+
+// 转回数组
+var_dump($user->toArray());
+```
+
+`ArrayType` 是一个新的注解，当需要声明一个指定类型的数组时，可以使用此注解定义
+
+```php
+    #[ArrayType(valueType: UserBalance::class)]
+    public array $balances;
+```
+
+
+### Swagger接口文档
+
+服务启动后，可直接访问 `http://127.0.0.1:9501/swagger` 查看swagger文档页面。
+可通过配置文件关闭此功能
