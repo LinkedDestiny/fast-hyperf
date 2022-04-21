@@ -1,0 +1,13 @@
+<?php
+declare(strict_types=1);
+
+namespace %NAMESPACE%;
+
+%USES%
+use LinkCloud\Fast\Hyperf\Annotations\Api\Property\ApiProperty;
+use LinkCloud\Fast\Hyperf\Framework\Entity\BaseRequest;
+
+class %CLASS% extends BaseRequest
+{
+    use %IDENTIFIER%;
+}

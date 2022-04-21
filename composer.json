@@ -1,0 +1,42 @@
+{
+    "name": "link-cloud/fast-hyperf",
+    "type": "library",
+    "description": "LinkCloud Fast Hyperf",
+    "license": "Apache-2.0",
+    "require": {
+        "php": ">=8.0",
+        "ext-swoole": ">=4.8",
+
+        "hyperf/config": "3.0.*",
+        "hyperf/command": "3.0.*",
+        "hyperf/db-connection": "3.0.*",
+        "hyperf/framework": "3.0.*",
+        "hyperf/http-server": "3.0.*",
+        "hyperf/redis": "3.0.*",
+        "hyperf/crontab": "3.0.*",
+        "hyperf/process": "3.0.*",
+        "hyperf/logger": "3.0.*",
+        "hyperf/cache": "3.0.*",
+        "hyperf/snowflake": "3.0.*",
+
+        "marc-mabe/php-enum": "~4.0",
+        "swlib/saber": "^1.0",
+        "yiisoft/var-dumper": "^1.2",
+        "firebase/php-jwt": "^5.0.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "LinkCloud\\Fast\\Hyperf\\": "src/"
+        },
+        "files": [
+            "src/Functions.php"
+        ]
+    },
+    "extra": {
+        "hyperf": {
+            "config": "LinkCloud\\Fast\\Hyperf\\ConfigProvider"
+        }
+    }
+}

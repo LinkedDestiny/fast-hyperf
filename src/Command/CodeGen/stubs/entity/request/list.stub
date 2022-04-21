@@ -1,0 +1,25 @@
+<?php
+declare(strict_types=1);
+
+namespace %NAMESPACE%;
+
+%USES%
+use LinkCloud\Fast\Hyperf\Annotations\Api\Property\ApiProperty;
+use LinkCloud\Fast\Hyperf\Framework\Entity\BaseRequest;
+use LinkCloud\Fast\Hyperf\Framework\Entity\Page;
+use LinkCloud\Fast\Hyperf\Framework\Entity\Request\BaseSort;
+
+class %CLASS% extends BaseRequest
+{
+    #[ApiProperty('控制参数')]
+    public %CONDITION_CLASS% $condition;
+
+    #[ApiProperty('搜索参数')]
+    public %LIST_SEARCH_CLASS% $search;
+
+    #[ApiProperty('分页参数')]
+    public Page $page;
+
+    #[ApiProperty('排序参数')]
+    public BaseSort $sort;
+}

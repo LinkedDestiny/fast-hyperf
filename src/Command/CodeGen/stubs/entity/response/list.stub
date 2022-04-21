@@ -1,0 +1,15 @@
+<?php
+declare(strict_types=1);
+
+namespace %NAMESPACE%;
+
+use LinkCloud\Fast\Hyperf\Annotations\ArrayType;
+use LinkCloud\Fast\Hyperf\Annotations\Api\Property\ApiProperty;
+use LinkCloud\Fast\Hyperf\Framework\Entity\Response\BaseListResponse;
+
+class %CLASS% extends BaseListResponse
+{
+    #[ApiProperty('列表')]
+    #[ArrayType(valueType: %ITEM%::class)]
+    public array $list;
+}

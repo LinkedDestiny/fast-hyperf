@@ -1,0 +1,17 @@
+<?php
+declare(strict_types=1);
+
+namespace %NAMESPACE%;
+
+%USES%
+use LinkCloud\Fast\Hyperf\Framework\Entity\BaseRequest;
+use LinkCloud\Fast\Hyperf\Annotations\Api\Property\ApiProperty;
+
+class %CLASS% extends BaseRequest
+{
+    #[ApiProperty('控制参数')]
+    public %CONDITION_CLASS% $condition;
+
+    #[ApiProperty('请求数据')]
+    public %DATA_CLASS% $data;
+}

@@ -1,0 +1,79 @@
+<?php
+declare(strict_types=1);
+
+namespace %NAMESPACE%;
+
+%USES%
+use Hyperf\Di\Annotation\Inject;
+use Hyperf\HttpServer\Annotation\Controller;
+use Hyperf\HttpServer\Annotation\Middleware;
+use Hyperf\HttpServer\Annotation\PostMapping;
+use LinkCloud\Fast\Hyperf\Annotations\Api\Api;
+use LinkCloud\Fast\Hyperf\Annotations\Api\ApiHeader;
+use LinkCloud\Fast\Hyperf\Annotations\Api\ApiOperation;
+use LinkCloud\Fast\Hyperf\Annotations\Api\Request\RequestBody;
+use LinkCloud\Fast\Hyperf\Annotations\Api\Request\Valid;
+use LinkCloud\Fast\Hyperf\Framework\BaseController;
+use LinkCloud\Fast\Hyperf\Framework\Entity\Response\BaseSuccessResponse;
+use Throwable;
+
+#[Controller(prefix: "%API_URI%")]
+#[Api(tags: "%DESCRIPTION%", description: "%DESCRIPTION%")]
+#[ApiHeader(name: 'Authorization')]
+class %CLASS% extends BaseController
+{
+    #[Inject]
+    public %LOGIC_CLASS% $%LOGIC_NAME%;
+
+    #[PostMapping(path: "list")]
+    #[ApiOperation("获取%NAME%列表")]
+    public function getList(#[Valid] #[RequestBody] %LIST_REQUEST% $request): %LIST_RESPONSE%
+    {
+        $result = $this->%LOGIC_NAME%->getList($request->condition->toArray(), $request->search->toArray(), $request->sort->toArray(), $request->page);
+        return new %LIST_RESPONSE%($result);
+    }
+
+    /**
+     * @throws Throwable
+     */
+    #[PostMapping(path: "create")]
+    #[ApiOperation("创建%NAME%")]
+    public function create(#[Valid] #[RequestBody] %CREATE_REQUEST% $request): BaseSuccessResponse
+    {
+        $this->%LOGIC_NAME%->create($request->condition->toArray(), $request->data->toArray());
+        return new BaseSuccessResponse();
+    }
+
+    /**
+     * @throws Throwable
+     */
+    #[PostMapping(path: "modify")]
+    #[ApiOperation("更新%NAME%")]
+    public function modify(#[Valid] #[RequestBody] %MODIFY_REQUEST% $request): BaseSuccessResponse
+    {
+        $this->%LOGIC_NAME%->modify($request->condition->toArray(), $request->search->toArray(), $request->data->toArray());
+        return new BaseSuccessResponse();
+    }
+
+    /**
+     * @throws Throwable
+     */
+    #[PostMapping(path: "remove")]
+    #[ApiOperation("删除%NAME%")]
+    public function remove(#[Valid] #[RequestBody] %REMOVE_REQUEST% $request): BaseSuccessResponse
+    {
+        $this->%LOGIC_NAME%->remove($request->condition->toArray(), $request->search->toArray());
+        return new BaseSuccessResponse();
+    }
+
+    /**
+     * @throws Throwable
+     */
+    #[PostMapping(path: "detail")]
+    #[ApiOperation("获取%NAME%详情")]
+    public function detail(#[Valid] #[RequestBody] %DETAIL_REQUEST% $request): %DETAIL_RESPONSE%
+    {
+        $result = $this->%LOGIC_NAME%->detail($request->condition->toArray(), $request->search->toArray());
+        return new %DETAIL_RESPONSE%($result);
+    }
+}
