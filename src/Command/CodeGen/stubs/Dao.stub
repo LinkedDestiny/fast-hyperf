@@ -119,4 +119,16 @@ class %CLASS% extends BaseDao implements %INTERFACES%
         }
         return $model->toArray();
     }
+
+    public function sum(array $condition, array $search, array $field): array
+    {
+        $query = %MODEL_NAME%::buildByCondition($search);
+        $query = $query->select($field);
+        return $query->first()->toArray();
+    }
+
+    public function count(array $condition, array $search): int
+    {
+        return %MODEL_NAME%::countCondition($search);
+    }
 }

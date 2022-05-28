@@ -8,6 +8,7 @@ use Hyperf\Database\Query\Expression;
 use Hyperf\Database\Query\Grammars\Grammar;
 use Hyperf\DbConnection\Model\Model;
 use Hyperf\Utils\Arr;
+use LinkCloud\Fast\Hyperf\Constants\SoftDeleted;
 
 /**
  * @property int enable
@@ -89,7 +90,7 @@ class BaseModel extends Model
      * @param array $condition
      * @return Builder
      */
-    protected static function buildByCondition(array $condition): Builder
+    public static function buildByCondition(array $condition): Builder
     {
         $model = new static();
         $query = $model->newQuery();

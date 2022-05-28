@@ -46,4 +46,19 @@ interface %CLASS%
      * @return array
      */
     public function detail(array $condition, array $search, array $field = ['*']): array;
+
+    /**
+     * @param array $condition
+     * @param array $search
+     * @param array $field
+     * @return array
+     */
+    public function sum(array $condition, array $search, array $field): array;
+
+    /**
+     * @param array $condition 控制参数
+     * @param array $search 搜索参数
+     * @return int
+     */
+    public function count(array $condition, array $search): int;
 }
