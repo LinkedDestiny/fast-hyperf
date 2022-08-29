@@ -36,10 +36,10 @@ class BaseEnum extends Enum implements Serializable
                 $key = sprintf('enums.%s.%s' , $class, $attributes[0]->newInstance()->message);
                 $result = $translator->trans($key);
                 return $key === $result ? $attributes[0]->newInstance()->message : $result;
-            } catch (Throwable $e) {
+            } catch (Throwable) {
                 return $attributes[0]->newInstance()->message;
             }
-        } catch (ReflectionException $e) {
+        } catch (ReflectionException) {
             return '';
         }
     }

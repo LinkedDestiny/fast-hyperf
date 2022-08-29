@@ -82,10 +82,10 @@ class GenerateCommand extends HyperfCommand
                 $daoInterface = $daoInterfaceGenerator->generate($daoInterfacePath, $modelClass);
                 $daoGenerator->generate($daoPath, $modelClass, $daoInterface);
                 $error = $errGenerator->generate($errorPath, $modelClass, $name);
-                $service = $serviceGenerator->generate($servicePath, $modelClass, $daoInterface, $error);
+                $service = $serviceGenerator->generate($servicePath, $modelClass, $daoInterface);
 
                 $entities = $entityGenerator->generate($entityPath, $config, $modelClass, $columns);
-                $logic = $logicGenerator->generate($logicPath, $config, $modelClass, $service, $primaryKey, $entities);
+                $logic = $logicGenerator->generate($logicPath, $config, $modelClass, $service, $primaryKey, $entities, $error);
                 $controllerGenerator->generate($controllerPath, $config, $modelClass, $name, $url, $logic, $entities);
 
                 if (!file_exists($configFile)) {

@@ -41,7 +41,11 @@ class %CLASS% extends BaseLogic
     public function create(array $condition, array $data): array
     {
         $data['%PRIMARY_KEY%'] = $this->uuidGenerator->generate();
-        return $this->%SERVICE_NAME%->create($condition, $data);
+        $result = $this->%SERVICE_NAME%->create($condition, $data);
+        if ($result === null) {
+            throw new BusinessException(%ERROR%::CREATE_ERROR());
+        }
+        return $result;
     }
 
     /**
@@ -53,7 +57,17 @@ class %CLASS% extends BaseLogic
      */
     public function modify(array $condition, array $search, array $data): int
     {
-        return $this->%SERVICE_NAME%->modify($condition, $search, $data);
+        $result = $this->%DAO_NAME%->detail($condition, $search);
+        if (empty($result)) {
+            throw new BusinessException(%ERROR%::NOT_FOUND());
+        }
+        $condition['_origin'] = $result;
+
+        $ret = $this->%SERVICE_NAME%->modify($condition, $search, $data);
+        if (!$ret) {
+            throw new BusinessException(%ERROR%::UPDATE_ERROR());
+        }
+        return $ret;
     }
 
     /**
@@ -64,7 +78,11 @@ class %CLASS% extends BaseLogic
      */
     public function remove(array $condition, array $search): int
     {
-        return $this->%SERVICE_NAME%->remove($condition, $search);
+        $ret = $this->%SERVICE_NAME%->remove($condition, $search);
+        if (!$ret) {
+            throw new BusinessException(%ERROR%::DELETE_ERROR());
+        }
+        return $ret;
     }
 
     /**
@@ -76,6 +94,10 @@ class %CLASS% extends BaseLogic
     public function detail(array $condition, array $search): array
     {
         $condition['auto_format'] = 1;
-        return $this->%SERVICE_NAME%->detail($condition, $search, %ITEM%::getAllProperty());
+        $result = $this->%SERVICE_NAME%->detail($condition, $search, %ITEM%::getAllProperty());
+        if ($result === null) {
+            throw new BusinessException(%ERROR%::NOT_FOUND());
+        }
+        return $result;
     }
 }
