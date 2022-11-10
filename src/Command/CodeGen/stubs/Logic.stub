@@ -57,7 +57,7 @@ class %CLASS% extends BaseLogic
      */
     public function modify(array $condition, array $search, array $data): int
     {
-        $result = $this->%DAO_NAME%->detail($condition, $search);
+        $result = $this->%SERVICE_NAME%->detail($condition, $search);
         if (empty($result)) {
             throw new BusinessException(%ERROR%::NOT_FOUND());
         }
