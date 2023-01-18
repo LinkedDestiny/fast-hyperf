@@ -31,7 +31,7 @@ class OptionsMiddleware implements MiddlewareInterface
         $response = Context::get(ResponseInterface::class);
         $response = $response->withAddedHeader('Access-Control-Expose-Headers', '*')
             ->withAddedHeader('Access-Control-Allow-Origin', '*')
-            ->withAddedHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+            ->withAddedHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
             ->withAddedHeader('Access-Control-Allow-Headers', $header);
         Context::set(ResponseInterface::class, $response);
 
