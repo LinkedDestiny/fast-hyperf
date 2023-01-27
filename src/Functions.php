@@ -16,7 +16,17 @@ if (! function_exists('isDev')) {
      */
     function isDev(): bool
     {
-        return in_array(config('app_env', 'dev'), ['dev', 'test']);
+        return config('app_env', 'dev') === 'dev';
+    }
+}
+
+if (! function_exists('isProb')) {
+    /**
+     * @return bool
+     */
+    function isProb(): bool
+    {
+        return config('app_env', 'prob') === 'prob';
     }
 }
 
