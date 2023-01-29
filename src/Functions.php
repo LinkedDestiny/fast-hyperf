@@ -20,11 +20,11 @@ if (! function_exists('isDev')) {
     }
 }
 
-if (! function_exists('isProb')) {
+if (! function_exists('isProd')) {
     /**
      * @return bool
      */
-    function isProb(): bool
+    function isProd(): bool
     {
         return config('app_env', 'prob') === 'prob';
     }
