@@ -135,11 +135,7 @@ class BaseModel extends Model
         return $connection->insert($query, $bindings);
     }
 
-    /**
-     * @param mixed $value
-     * @return string
-     */
-    protected function asJson(array $value): string
+    protected function asJson(mixed $value): string|false
     {
         return json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
