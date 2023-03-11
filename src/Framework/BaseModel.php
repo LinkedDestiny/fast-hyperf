@@ -9,6 +9,7 @@ use Hyperf\Database\Query\Grammars\Grammar;
 use Hyperf\DbConnection\Model\Model;
 use Hyperf\Utils\Arr;
 use LinkCloud\Fast\Hyperf\Constants\SoftDeleted;
+use Loc\Data\Worker\Model\Arbitrum\GmxOrder;
 
 /**
  * @property int enable
@@ -93,6 +94,11 @@ class BaseModel extends Model
     public static function buildByCondition(array $condition): Builder
     {
         $model = new static();
+        if (isset($condition['connection']) && $condition['connection']) {
+            $model->setConnection($condition['connection']);
+            unset($condition['connection']);
+        }
+
         $query = $model->newQuery();
 
         foreach ($condition as $key => $value) {
