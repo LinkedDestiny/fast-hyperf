@@ -118,13 +118,15 @@ class BaseModel extends Model
     /**
      * insert or update a record
      *
+     * @param string $connection
      * @param array $values
      * @param array $value
      * @return bool
      */
-    public static function insertOrUpdate(array $values, array $value): bool
+    public static function insertOrUpdate(string $connection, array $values, array $value): bool
     {
         $model = new static();
+        $model->setConnection($connection);
         $connection = $model->getConnection();   // 数据库连接
         $builder = $model->newQuery()->getQuery();   // 查询构造器
         $grammar = $builder->getGrammar();  // 语法器
