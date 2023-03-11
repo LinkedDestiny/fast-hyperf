@@ -121,7 +121,7 @@ class BaseModel extends Model
         // 编译插入语句
         $insert = $grammar->compileInsert($builder, $values);
         // 编译重复后更新列语句。
-        $update = collect($values)->map(function ($value, $key) use ($grammar) {
+        $update = collect($value)->map(function ($value, $key) use ($grammar) {
             return $grammar->wrap($key) . ' = ' . $grammar->parameter($value);
         })->implode(', ');
         // 构造查询语句
