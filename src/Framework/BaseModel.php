@@ -153,7 +153,7 @@ class BaseModel extends Model
         return strval($this->asTimestamp($value));
     }
 
-    protected static function buildQuery(): Builder
+    public static function buildQuery(): Builder
     {
         $model = new static();
         return $model->newQuery();
