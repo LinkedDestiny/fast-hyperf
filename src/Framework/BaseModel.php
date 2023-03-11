@@ -5,11 +5,9 @@ namespace LinkCloud\Fast\Hyperf\Framework;
 
 use Hyperf\Database\Model\Builder;
 use Hyperf\Database\Query\Expression;
-use Hyperf\Database\Query\Grammars\Grammar;
 use Hyperf\DbConnection\Model\Model;
 use Hyperf\Utils\Arr;
 use LinkCloud\Fast\Hyperf\Constants\SoftDeleted;
-use Loc\Data\Worker\Model\Arbitrum\GmxOrder;
 
 /**
  * @property int enable
@@ -93,14 +91,7 @@ class BaseModel extends Model
      */
     public static function buildByCondition(array $condition): Builder
     {
-        $model = new static();
-        if (isset($condition['connection']) && $condition['connection']) {
-            $model->setConnection($condition['connection']);
-            unset($condition['connection']);
-        }
-
-        $query = $model->newQuery();
-
+        $query = static::buildQuery();
         foreach ($condition as $key => $value) {
             if (is_int($key)) {
                 $query->where($condition);
@@ -117,67 +108,38 @@ class BaseModel extends Model
 
     /**
      * insert or update a record
-     *
-     * @param string $connection
      * @param array $values
      * @param array $value
      * @return bool
      */
-    public static function insertOrUpdate(string $connection, array $values, array $value): bool
+    public static function insertOrUpdate(array $values, array $value): bool
     {
-        $model = new static();
-        $model->setConnection($connection);
-        $connection = $model->getConnection();   // 数据库连接
-        $builder = $model->newQuery()->getQuery();   // 查询构造器
+        $query = static::buildQuery();
+        $builder = $query->getQuery();   // 查询构造器
+        $connection = $query->getConnection();   // 数据库连接
         $grammar = $builder->getGrammar();  // 语法器
         // 编译插入语句
         $insert = $grammar->compileInsert($builder, $values);
         // 编译重复后更新列语句。
-        $update = $model->compileUpdateColumns($grammar, $value);
+        $update = collect($values)->map(function ($value, $key) use ($grammar) {
+            return $grammar->wrap($key) . ' = ' . $grammar->parameter($value);
+        })->implode(', ');
         // 构造查询语句
         $query = $insert . ' on duplicate key update ' . $update;
         // 组装sql绑定参数
-        $bindings = $model->prepareBindingsForInsertOrUpdate($values, $value);
-        // 执行数据库查询
-        return $connection->insert($query, $bindings);
-    }
-
-    /**
-     * Compile all of the columns for an update statement.
-     *
-     * @param Grammar $grammar
-     * @param array $values
-     * @return string
-     */
-    private function compileUpdateColumns(Grammar $grammar, array $values): string
-    {
-        return collect($values)->map(function ($value, $key) use ($grammar) {
-            return $grammar->wrap($key) . ' = ' . $grammar->parameter($value);
-        })->implode(', ');
-    }
-
-    /**
-     * Prepare the bindings for an insert or update statement.
-     *
-     * @param array $values
-     * @param array $value
-     * @return array
-     */
-    private function prepareBindingsForInsertOrUpdate(array $values, array $value): array
-    {
-        // Merge array of bindings
         $bindings = array_merge_recursive($values, [$value]);
-        // Remove all of the expressions from a list of bindings.
-        return array_values(array_filter(Arr::flatten($bindings, 1), function ($binding) {
+        $bindings = array_values(array_filter(Arr::flatten($bindings, 1), function ($binding) {
             return !$binding instanceof Expression;
         }));
+        // 执行数据库查询
+        return $connection->insert($query, $bindings);
     }
 
     /**
      * @param mixed $value
      * @return string
      */
-    protected function asJson($value): string
+    protected function asJson(array $value): string
     {
         return json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
@@ -186,8 +148,14 @@ class BaseModel extends Model
      * @param mixed $value
      * @return string
      */
-    public function fromDateTime($value): string
+    public function fromDateTime(mixed $value): string
     {
         return strval($this->asTimestamp($value));
+    }
+
+    protected static function buildQuery(): Builder
+    {
+        $model = new static();
+        return $model->newQuery();
     }
 }
