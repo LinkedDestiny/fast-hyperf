@@ -26,6 +26,8 @@ class GenerateCommand extends HyperfCommand
      */
     protected ?string $name = 'gen:code';
 
+    protected ?string $signature = 'gen:code';
+
     public function handle()
     {
         try {

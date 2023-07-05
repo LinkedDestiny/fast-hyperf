@@ -17,6 +17,8 @@ class GenerateTokenCommand extends HyperfCommand
      */
     protected ?string $name = 'gen:token';
 
+    protected ?string $signature = 'gen:token';
+
     public function handle()
     {
         $token = JwtHelper::generateToken([

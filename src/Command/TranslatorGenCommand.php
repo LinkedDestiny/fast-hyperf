@@ -19,6 +19,8 @@ class TranslatorGenCommand extends HyperfCommand
      */
     protected ?string $name = 'translate:gen';
 
+    protected ?string $signature = 'translate:gen';
+
     public function handle()
     {
         $dirs = config('generate.transfers.dirs');
