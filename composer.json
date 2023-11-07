@@ -5,7 +5,6 @@
     "license": "Apache-2.0",
     "require": {
         "php": ">=8.0",
-        "ext-swoole": ">=4.8",
 
         "hyperf/config": "3.0.*",
         "hyperf/command": "3.0.*",
