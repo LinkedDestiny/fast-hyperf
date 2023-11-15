@@ -11,7 +11,7 @@
 
 普通安装
 ```
-composer requrie link-cloud/fast-hyperf
+composer require link-cloud/fast-hyperf
 ```
 
 模板安装
