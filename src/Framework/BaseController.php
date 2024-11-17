@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace LinkCloud\Fast\Hyperf\Framework;
 
 use Hyperf\Di\Annotation\Inject;
-use Hyperf\HttpServer\Contract\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Hyperf\HttpServer\Response;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -16,7 +16,7 @@ class BaseController
     protected ContainerInterface $container;
 
     #[Inject]
-    protected RequestInterface $request;
+    protected ServerRequestInterface $request;
 
     #[Inject]
     protected Response $response;
