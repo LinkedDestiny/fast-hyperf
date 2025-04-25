@@ -7,7 +7,7 @@ use Hyperf\Contract\ConfigInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\Di\Annotation\AnnotationCollector;
 use Hyperf\HttpServer\Annotation\AutoController;
-use Hyperf\Utils\ApplicationContext;
+use Hyperf\Context\ApplicationContext;
 use JetBrains\PhpStorm\Deprecated;
 use LinkCloud\Fast\Hyperf\ApiDocs\Scanner\ApiAnnotationCollector;
 use LinkCloud\Fast\Hyperf\Annotations\Api\Api;
@@ -15,6 +15,7 @@ use LinkCloud\Fast\Hyperf\Annotations\Api\ApiHeader;
 use LinkCloud\Fast\Hyperf\Annotations\Api\ApiOperation;
 use LinkCloud\Fast\Hyperf\Annotations\Api\ApiResponse;
 use Psr\Container\ContainerInterface;
+use function Hyperf\Collection\collect;
 
 class SwaggerJson
 {
@@ -254,14 +255,14 @@ class SwaggerJson
         $data['tags'] = collect($data['tags'] ?? [])
             ->sortByDesc('position')
             ->map(function ($item) {
-                return collect($item)->except('position');
+                return collect($item)->except(['position']);
             })
             ->values()
             ->toArray();
         $data['paths'] = collect($data['paths'] ?? [])
             ->sortBy('position')
             ->map(function ($item) {
-                return collect($item)->except('position');
+                return collect($item)->except(['position']);
             })
             ->toArray();
         return $data;

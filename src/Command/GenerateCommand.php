@@ -16,6 +16,8 @@ use LinkCloud\Fast\Hyperf\Command\CodeGen\ModelGenerator;
 use LinkCloud\Fast\Hyperf\Command\CodeGen\ServiceGenerator;
 use LinkCloud\Fast\Hyperf\Command\Option\GenerateOption;
 use Symfony\Component\Console\Input\InputOption;
+use function Hyperf\Config\config;
+use function Hyperf\Support\class_basename;
 
 #[Command]
 class GenerateCommand extends HyperfCommand
@@ -28,7 +30,7 @@ class GenerateCommand extends HyperfCommand
 
     protected ?string $signature = 'gen:code';
 
-    public function handle()
+    public function handle(): void
     {
         try {
             $this->line('代码自动生成工具启动');
@@ -100,7 +102,7 @@ class GenerateCommand extends HyperfCommand
         }
     }
 
-    public function configure()
+    public function configure(): void
     {
         parent::configure();
 

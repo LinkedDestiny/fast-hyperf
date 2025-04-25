@@ -9,12 +9,8 @@ use Throwable;
 
 class UuidGenerator
 {
-    public function generate(?string $genus = null): string
+    public function generate(): string
     {
-        if (empty($genus)) {
-
-        }
-        //TODO 支持根据genus生成ID
         try {
             return strval(di()->get(SnowflakeIdGenerator::class)->generate());
         } catch (Throwable $e) {

@@ -5,7 +5,7 @@ namespace LinkCloud\Fast\Hyperf\ApiDocs\Swagger;
 
 use Hyperf\Database\Model\Model;
 use Hyperf\Di\ReflectionManager;
-use Hyperf\Utils\ApplicationContext;
+use Hyperf\Context\ApplicationContext;
 use LinkCloud\Fast\Hyperf\ApiDocs\Scanner\ApiAnnotationCollector;
 use LinkCloud\Fast\Hyperf\ApiDocs\Scanner\Property\PropertyManager;
 use LinkCloud\Fast\Hyperf\Annotations\Api\Property\ApiProperty;
@@ -15,6 +15,7 @@ use LinkCloud\Fast\Hyperf\Helpers\StringHelper;
 use ReflectionProperty;
 use stdClass;
 use Throwable;
+use function Hyperf\Support\make;
 
 class SwaggerCommon
 {

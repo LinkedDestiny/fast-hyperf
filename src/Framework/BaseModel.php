@@ -3,11 +3,12 @@ declare(strict_types=1);
 
 namespace LinkCloud\Fast\Hyperf\Framework;
 
+use Hyperf\Collection\Arr;
 use Hyperf\Database\Model\Builder;
 use Hyperf\Database\Query\Expression;
 use Hyperf\DbConnection\Model\Model;
-use Hyperf\Utils\Arr;
 use LinkCloud\Fast\Hyperf\Constants\SoftDeleted;
+use function Hyperf\Collection\collect;
 
 /**
  * @property int enable

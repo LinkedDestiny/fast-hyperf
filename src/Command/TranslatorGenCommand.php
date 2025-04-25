@@ -10,6 +10,7 @@ use Hyperf\Di\ReflectionManager;
 use LinkCloud\Fast\Hyperf\Annotations\EnumMessage;
 use ReflectionClass;
 use Yiisoft\VarDumper\VarDumper;
+use function Hyperf\Config\config;
 
 #[Command]
 class TranslatorGenCommand extends HyperfCommand
@@ -21,7 +22,7 @@ class TranslatorGenCommand extends HyperfCommand
 
     protected ?string $signature = 'translate:gen';
 
-    public function handle()
+    public function handle(): void
     {
         $dirs = config('generate.transfers.dirs');
         $language = config('generate.transfers.languages', ['zh_CN', 'en']);
@@ -58,7 +59,7 @@ return " . VarDumper::create($output)->export() . ';');
         }
     }
 
-    public function configure()
+    public function configure(): void
     {
         parent::configure();
         $this->setDescription('国际化转换工具');

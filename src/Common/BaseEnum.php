@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace LinkCloud\Fast\Hyperf\Common;
 
+use Hyperf\Context\ApplicationContext;
 use Hyperf\Contract\TranslatorInterface;
-use Hyperf\Utils\ApplicationContext;
 use LinkCloud\Fast\Hyperf\Annotations\EnumMessage;
 use MabeEnum\Enum;
 use MabeEnum\EnumSerializableTrait;

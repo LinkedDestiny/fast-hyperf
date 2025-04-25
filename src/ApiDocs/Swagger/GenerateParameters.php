@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace LinkCloud\Fast\Hyperf\ApiDocs\Swagger;
 
+use Hyperf\Context\ApplicationContext;
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Di\MethodDefinitionCollectorInterface;
-use Hyperf\Utils\ApplicationContext;
 use LinkCloud\Fast\Hyperf\Annotations\Api\ApiHeader;
 use LinkCloud\Fast\Hyperf\Annotations\Api\BaseParam;
 use LinkCloud\Fast\Hyperf\ApiDocs\Scanner\Method\MethodParametersManager;

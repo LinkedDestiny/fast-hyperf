@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace LinkCloud\Fast\Hyperf\Framework\Listener;
 
+use Hyperf\Context\ApplicationContext;
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\Event\Contract\ListenerInterface;
 use Hyperf\Framework\Event\BootApplication;
 use Hyperf\HttpServer\Router\DispatcherFactory;
 use Hyperf\Server\ServerInterface;
-use Hyperf\Utils\ApplicationContext;
 use LinkCloud\Fast\Hyperf\ApiDocs\Swagger\SwaggerRoute;
 use Throwable;
 

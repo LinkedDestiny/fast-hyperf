@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace LinkCloud\Fast\Hyperf\Framework\Log;
 
+use Hyperf\Context\ApplicationContext;
 use Hyperf\Logger\Logger;
-use Hyperf\Utils\ApplicationContext;
 
 /**
  * @method static Logger get($name)

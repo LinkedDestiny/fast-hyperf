@@ -8,6 +8,7 @@ use Hyperf\Command\Annotation\Command;
 use LinkCloud\Fast\Hyperf\Constants\Time;
 use LinkCloud\Fast\Hyperf\Helpers\JwtHelper;
 use Symfony\Component\Console\Input\InputArgument;
+use function Hyperf\Config\config;
 
 #[Command]
 class GenerateTokenCommand extends HyperfCommand
@@ -19,7 +20,7 @@ class GenerateTokenCommand extends HyperfCommand
 
     protected ?string $signature = 'gen:token';
 
-    public function handle()
+    public function handle(): void
     {
         $token = JwtHelper::generateToken([
             'merchant_id'     => '1',
@@ -37,7 +38,7 @@ class GenerateTokenCommand extends HyperfCommand
         ];
     }
 
-    public function configure()
+    public function configure(): void
     {
         parent::configure();
         $this->addUsage('--type shop');

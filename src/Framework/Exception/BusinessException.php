@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace LinkCloud\Fast\Hyperf\Framework\Exception;
 
 use Exception;
+use Hyperf\Context\ApplicationContext;
 use Hyperf\Contract\TranslatorInterface;
-use Hyperf\Utils\ApplicationContext;
 use LinkCloud\Fast\Hyperf\Framework\Entity\ErrorCode;
 use Throwable;
 

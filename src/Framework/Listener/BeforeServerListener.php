@@ -4,17 +4,19 @@ declare(strict_types=1);
 namespace LinkCloud\Fast\Hyperf\Framework\Listener;
 
 use Closure;
+use Hyperf\Context\ApplicationContext;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\Event\Contract\ListenerInterface;
 use Hyperf\Framework\Event\BeforeServerStart;
 use Hyperf\HttpServer\Router\DispatcherFactory;
 use Hyperf\HttpServer\Router\Handler;
 use Hyperf\Server\Event\MainCoroutineServerStart;
-use Hyperf\Utils\ApplicationContext;
 use LinkCloud\Fast\Hyperf\ApiDocs\Scanner\Scanner;
 use LinkCloud\Fast\Hyperf\ApiDocs\Swagger\SwaggerJson;
 use RuntimeException;
 use Throwable;
+use function Hyperf\Config\config;
+use function Hyperf\Support\make;
 
 class BeforeServerListener implements ListenerInterface
 {

@@ -5,7 +5,7 @@ namespace LinkCloud\Fast\Hyperf\ApiDocs\Swagger;
 
 use Hyperf\Di\MethodDefinitionCollectorInterface;
 use Hyperf\Di\ReflectionType;
-use Hyperf\Utils\ApplicationContext;
+use Hyperf\Context\ApplicationContext;
 use LinkCloud\Fast\Hyperf\ApiDocs\Scanner\Scanner;
 use LinkCloud\Fast\Hyperf\Annotations\Api\ApiResponse;
 use Psr\Container\ContainerInterface;

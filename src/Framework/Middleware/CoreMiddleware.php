@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace LinkCloud\Fast\Hyperf\Framework\Middleware;
 
+use Hyperf\Codec\Json;
 use Hyperf\Context\Context;
 use Hyperf\Contract\Arrayable;
+use Hyperf\Contract\Jsonable;
 use Hyperf\HttpMessage\Stream\SwooleStream;
-use Hyperf\Utils\Codec\Json;
-use Hyperf\Utils\Contracts\Jsonable;
 use InvalidArgumentException;
 use LinkCloud\Fast\Hyperf\ApiDocs\Scanner\Method\MethodParametersManager;
 use LinkCloud\Fast\Hyperf\ApiDocs\Scanner\Property\PropertyManager;
@@ -17,6 +17,7 @@ use LinkCloud\Fast\Hyperf\Framework\Entity\Response\CommonResponse;
 use LinkCloud\Fast\Hyperf\Helpers\StringHelper;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Swow\Psr7\Message\ResponsePlusInterface;
 
 class CoreMiddleware extends \Hyperf\HttpServer\CoreMiddleware
 {
@@ -31,7 +32,7 @@ class CoreMiddleware extends \Hyperf\HttpServer\CoreMiddleware
      *
      * @param null|array|Arrayable|Jsonable|string $response
      */
-    protected function transferToResponse($response, ServerRequestInterface $request): ResponseInterface
+    protected function transferToResponse($response, ServerRequestInterface $request): ResponsePlusInterface
     {
         if (is_string($response)) {
             return $this->response()->withAddedHeader('content-type', 'text/plain')->withBody(new SwooleStream($response));

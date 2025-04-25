@@ -1,14 +1,16 @@
 <?php
 declare(strict_types=1);
 
+use Hyperf\Context\ApplicationContext;
 use Hyperf\Context\Context;
 use Hyperf\ExceptionHandler\Formatter\FormatterInterface;
 use Hyperf\HttpServer\Request;
 use Hyperf\HttpServer\Response;
-use Hyperf\Utils\ApplicationContext;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use function Hyperf\Config\config;
+
 
 if (! function_exists('isDev')) {
     /**

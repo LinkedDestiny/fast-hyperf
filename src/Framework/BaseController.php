@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace LinkCloud\Fast\Hyperf\Framework;
 
 use Hyperf\Di\Annotation\Inject;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Hyperf\HttpServer\Response;
 use Psr\Container\ContainerInterface;
