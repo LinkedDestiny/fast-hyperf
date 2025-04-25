@@ -23,7 +23,7 @@ abstract class BaseParam extends AbstractMultipleAnnotation
 
     protected string $in;
 
-    public function __construct(string $name = '', bool $required = null, string $type = 'string', $default = null, $example = null, string $description = null, bool $hidden = false)
+    public function __construct(string $name = '', bool|null $required = null, string $type = 'string', $default = null, $example = null, string|null $description = null, bool $hidden = false)
     {
         $this->name = $name;
         $this->required = $required;

@@ -17,7 +17,7 @@ class ApiResponse extends AbstractMultipleAnnotation
 
     public ?string $type;
 
-    public function __construct(string $code = null, string $description = null, string $className = null, string $type = null)
+    public function __construct(string|null $code = null, string|null $description = null, string|null $className = null, string|null $type = null)
     {
         $this->code = $code;
         $this->description = $description;

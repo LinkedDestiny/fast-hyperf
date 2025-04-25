@@ -10,7 +10,7 @@ use LinkCloud\Fast\Hyperf\Constants\PropertyScope;
 class ApiAttribute extends ApiProperty
 {
 
-    public function __construct(string $name, $example = null, bool $hidden = false)
+    public function __construct(string|null $name, $example = null, bool $hidden = false)
     {
         parent::__construct($name, $example, $hidden);
         $this->scope = PropertyScope::ATTRIBUTE();

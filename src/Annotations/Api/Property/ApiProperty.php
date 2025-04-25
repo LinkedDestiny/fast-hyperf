@@ -18,7 +18,7 @@ class ApiProperty extends AbstractAnnotation
 
     public PropertyScope $scope;
 
-    public function __construct(string $name, $example = null, bool $hidden = false)
+    public function __construct(string|null $name, $example = null, bool $hidden = false)
     {
         $this->name = $name;
         $this->example = $example;
