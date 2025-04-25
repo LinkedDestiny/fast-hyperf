@@ -17,6 +17,7 @@
         "hyperf/logger": "~3.1",
         "hyperf/cache": "~3.1",
         "hyperf/snowflake": "~3.1",
+        "hyperf/coroutine": "~3.1",
 
         "marc-mabe/php-enum": "~4.0",
         "swlib/saber": "^1.0",

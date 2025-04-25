@@ -20,7 +20,6 @@ class ApiProperty extends AbstractAnnotation
 
     public function __construct(string $name, $example = null, bool $hidden = false)
     {
-        parent::__construct();
         $this->name = $name;
         $this->example = $example;
         $this->hidden = $hidden;
