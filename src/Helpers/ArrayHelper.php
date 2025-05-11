@@ -412,7 +412,7 @@ class ArrayHelper
      * @param string|Closure|null $group
      * @return array
      */
-    public static function map(array $array, Closure|string $from, Closure|string $to, string|Closure $group = null): array
+    public static function map(array $array, Closure|string $from, Closure|string $to, string|Closure|null $group = null): array
     {
         if ($group === null) {
             return array_column($array, $to, $from);

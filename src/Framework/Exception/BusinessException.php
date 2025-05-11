@@ -11,7 +11,7 @@ use Throwable;
 
 class BusinessException extends Exception
 {
-    public function __construct(ErrorCode $code, string $message = null, array $replaces = [])
+    public function __construct(ErrorCode $code, string|null $message = null, array $replaces = [])
     {
         if (empty($message)) {
             $message = $code->getMessage();

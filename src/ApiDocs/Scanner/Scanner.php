@@ -118,7 +118,7 @@ class Scanner
     private function setMethodParameters($className, $methodName)
     {
         // 获取方法的反射对象
-        $ref = new ReflectionMethod($className . '::' . $methodName);
+        $ref = ReflectionMethod::createFromMethodName($className . '::' . $methodName);
         // 获取方法上指定名称的全部注解
         $attributes = $ref->getParameters();
         $methodMark = 0;
