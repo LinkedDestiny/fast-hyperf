@@ -7,6 +7,7 @@ use Hyperf\Codec\Json;
 use Hyperf\Context\Context;
 use Hyperf\Contract\Arrayable;
 use Hyperf\Contract\Jsonable;
+use Hyperf\HttpMessage\Server\ResponsePlusProxy;
 use Hyperf\HttpMessage\Stream\SwooleStream;
 use InvalidArgumentException;
 use LinkCloud\Fast\Hyperf\ApiDocs\Scanner\Method\MethodParametersManager;
@@ -35,30 +36,39 @@ class CoreMiddleware extends \Hyperf\HttpServer\CoreMiddleware
     protected function transferToResponse($response, ServerRequestInterface $request): ResponsePlusInterface
     {
         if (is_string($response)) {
-            return $this->response()->withAddedHeader('content-type', 'text/plain')->withBody(new SwooleStream($response));
+            return $this->response()->addHeader('content-type', 'text/plain')->setBody(new SwooleStream($response));
+        }
+
+        if ($response instanceof ResponseInterface) {
+            return new ResponsePlusProxy($response);
         }
 
         if (is_array($response) || $response instanceof Arrayable) {
             return $this->response()
-                ->withAddedHeader('content-type', 'application/json')
-                ->withBody(new SwooleStream(Json::encode($response)));
+                ->addHeader('content-type', 'application/json')
+                ->setBody(new SwooleStream(Json::encode($response)));
         }
 
         if ($response instanceof Jsonable) {
             return $this->response()
-                ->withAddedHeader('content-type', 'application/json')
-                ->withBody(new SwooleStream((string) $response));
+                ->addHeader('content-type', 'application/json')
+                ->setBody(new SwooleStream((string) $response));
         }
+
         //object
         if (is_object($response)) {
             $commonResponse = new CommonResponse();
             $commonResponse->data = $response;
             return $this->response()
-                ->withAddedHeader('content-type', 'application/json')
-                ->withBody(new SwooleStream(Json::encode($commonResponse->toArray())));
+                ->addHeader('content-type', 'application/json')
+                ->setBody(new SwooleStream(Json::encode($commonResponse->toArray())));
         }
 
-        return $this->response()->withAddedHeader('content-type', 'text/plain')->withBody(new SwooleStream((string) $response));
+        if ($this->response()->hasHeader('content-type')) {
+            return $this->response()->setBody(new SwooleStream((string) $response));
+        }
+
+        return $this->response()->addHeader('content-type', 'text/plain')->setBody(new SwooleStream((string) $response));
     }
 
     private function getInjections(array $definitions, string $callableName, array $arguments): array
