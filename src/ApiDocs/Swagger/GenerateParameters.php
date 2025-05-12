@@ -78,7 +78,7 @@ class GenerateParameters
                     $this->common->generateClass2schema($parameterClassName);
                     $property = [];
                     $property['in'] = 'body';
-                    $property['name'] = $this->common->getSimpleClassName($parameterClassName);
+                    $property['name'] = 'body';
                     $property['description'] = '';
                     $property['required'] = true;
                     $property['schema']['$ref'] = $this->common->getDefinitions($parameterClassName);

@@ -128,18 +128,15 @@ class Scanner
             $mark = 0;
             if ($attribute->getAttributes(RequestQuery::class)) {
                 $methodParameters->setIsRequestQuery(true);
-                $paramName = "query";
                 ++$mark;
             }
             if ($attribute->getAttributes(RequestFormData::class)) {
                 $methodParameters->setIsRequestFormData(true);
-                $paramName = "form";
                 ++$mark;
                 ++$methodMark;
             }
             if ($attribute->getAttributes(RequestBody::class)) {
                 $methodParameters->setIsRequestBody(true);
-                $paramName = "body";
                 ++$mark;
                 ++$methodMark;
             }
