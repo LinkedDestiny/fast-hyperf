@@ -125,6 +125,10 @@ class BaseObject
             if ($class::hasValue($val)) {
                 return $class::byValue($val);
             }
+            $val = intval($val);
+            if ($class::hasValue($val)) {
+                return $class::byValue($val);
+            }
             throw new RuntimeException($class . ' enum value not exists');
         } elseif (class_exists($class)) {
             $obj = new $class();

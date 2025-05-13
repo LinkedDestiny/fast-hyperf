@@ -41,7 +41,7 @@ class SwaggerCommon
         foreach ($rc->getProperties(ReflectionProperty::IS_PUBLIC) ?? [] as $reflectionProperty) {
             $property = [];
             $property['in'] = $in;
-            $property['name'] = $reflectionProperty->getName();
+            $property['name'] = StringHelper::camelize($reflectionProperty->getName());
             try {
                 $property['default'] = $reflectionProperty->getValue(make($parameterClassName));
             } catch (Throwable) {
